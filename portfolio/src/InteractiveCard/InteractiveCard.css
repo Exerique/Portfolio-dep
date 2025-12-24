@@ -1,0 +1,84 @@
+.interactive-card-container {
+  display: inline-block;
+  perspective: 600px;
+  user-select: none;
+}
+
+.interactive-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(.5,2,.5,.5);
+}
+
+.interactive-card:not(:hover) {
+  transition-duration: .75s;
+  transition-timing-function: cubic-bezier(.25,3,.5,.5);
+  transform: none !important;
+}
+
+.interactive-card > * {
+  pointer-events: none;
+}
+
+.card-base {
+  display: block;
+  width: 280px;
+  border-radius: 16px;
+}
+
+.card-content {
+  background: #222222;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  color: #fff;
+  padding: 16px;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
+/* Shared FX layer */
+.interactive-card-fx {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+}
+
+
+.interactive-card-foil {
+  transform: translateZ(1px);
+  mix-blend-mode: color-dodge;
+  background:
+    linear-gradient(
+      120deg,
+      #ff00ff,
+      #00ffff,
+      #ffff00,
+      #ff00ff
+    );
+  background-size: 200% 200%;
+  animation: foilMove 6s linear infinite;
+  filter: brightness(.85) contrast(2.75) saturate(.65);
+  opacity: 20%;
+}
+
+
+.interactive-card-glare {
+  transform: translateZ(2px);
+  mix-blend-mode: overlay;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255,255,255,0.6),
+    transparent 60%
+  );
+  transition: opacity .4s cubic-bezier(.5,2.5,.5,.5);
+}
+
+@keyframes foilMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
+}
